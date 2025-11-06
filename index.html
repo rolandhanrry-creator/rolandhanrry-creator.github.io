@@ -132,15 +132,17 @@
             justify-content: center;
             min-height: 100vh;
             text-align: center;
-            position: relative; /* 添加相对定位，为遮罩层做准备 */
-            color: var(--white); /* 将文字颜色改为白色，以适应深色背景 */
+            position: relative; 
+            color: var(--white); 
 
-            /* --- ↓↓↓ 这是新添加的背景图片代码 ↓↓↓ --- */
-            /* 你可以替换成自己的图片链接 */
-            background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop');
-            background-size: cover; /* 让图片完全覆盖整个区域 */
-            background-position: center; /* 图片居中显示 */
-            background-attachment: fixed; /* 固定背景，产生视差效果 */
+            /* 
+                【已为你更新！】
+                这里是你提供的全新背景图链接。
+            */
+            background-image: url('https://i.ibb.co/wF8xrLMd/2025-11-06-6-50-53-compressed.png');
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
         }
 
         /* 添加一个半透明的黑色遮罩层，确保文字清晰可读 */
@@ -152,7 +154,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5); /* 50% 透明度的黑色 */
-            z-index: 1; /* 确保遮罩在背景之上 */
+            z-index: 1; 
         }
 
         /* 确保文字内容在遮罩层之上 */
@@ -213,8 +215,8 @@
 
         .portfolio-item img {
             width: 100%;
-            height: 250px; /* 固定图片高度 */
-            object-fit: cover; /* 保证图片不变形 */
+            height: 250px; 
+            object-fit: cover; 
             display: block;
         }
 
@@ -228,7 +230,7 @@
 
         .portfolio-info p {
             font-size: 0.9rem;
-            margin-bottom: 0; /* 移除段落底边距 */
+            margin-bottom: 0; 
         }
 
         /* ------------------- */
@@ -305,17 +307,16 @@
                 font-size: 2rem;
             }
 
-            /* 在移动端隐藏文字导航，未来可改为汉堡菜单 */
             .navbar ul {
                 display: none;
             }
 
             .portfolio-grid {
-                grid-template-columns: 1fr; /* 在移动端变为单列 */
+                grid-template-columns: 1fr; 
             }
 
             .about-content {
-                flex-direction: column; /* 关于我区域改为垂直排列 */
+                flex-direction: column; 
                 text-align: center;
             }
         }
@@ -338,7 +339,6 @@
         <div class="hero-content">
             <h1>视觉营销 & 跨境电商</h1>
             <p>本频道将展示Roland的设计作品集。</p>
-            <!-- 【已修正】这里的链接从 #ortfolio 改为 #portfolio -->
             <a href="#portfolio" class="hero-button">查看我的作品</a>
         </div>
     </header>
@@ -395,7 +395,6 @@
                     <p>在校期间，我参与了多个电商与品牌项目，从品牌识别到数字媒体营销，积累了丰富的实践经验。</p>
                 </div>
                 <div class="about-image">
-                    <!-- 【已替换】这里是你的个人头像 -->
                     <img src="https://i.ibb.co/zhqsszsN/2025-11-03-2-48-32-compressed.png" alt="Roland的头像">
                 </div>
             </div>
@@ -407,436 +406,6 @@
                 <h2>与我联系</h2>
                 <p>期待与您合作。您可以通过以下方式找到我：</p>
                 <div class="contact-info">
-                    <!-- 【已修正】这里的 mailto 链接已改为你的邮箱 -->
-                    <p><a href="mailto:Rolandhanrry@gmail.com">Rolandhanrry@gmail.com</a></p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- 页脚 -->
-    <footer>
-        <p>&copy; 2025 Roland. 版权所有.</p>
-    </footer>
-
-    <!-- 内联 JavaScript (可选) -->
-    <script>
-        // 未来可以添加更多交互效果
-        console.log("欢迎来到Roland的作品集网站！");
-    </script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roland - 个人作品集</title>
-
-    <!-- 引入 Google Fonts 的 Inter 字体 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- 内联 CSS 样式 -->
-    <style>
-        /* ------------------- */
-        /* --- 全局样式重置 --- */
-        /* ------------------- */
-        :root {
-            --primary-color: #007BFF; /* 主题色，用于链接和按钮 */
-            --text-color: #333333; /* 主要文本颜色 */
-            --light-gray: #f4f4f4; /* 浅灰色背景 */
-            --white: #ffffff; /* 白色 */
-            --font-family: 'Inter', sans-serif; /* 全局字体 */
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth; /* 平滑滚动效果 */
-        }
-
-        body {
-            font-family: var(--font-family);
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--white);
-        }
-
-        /* ------------------- */
-        /* --- 布局容器 --- */
-        /* ------------------- */
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 100px 0; /* 增加了上下内边距 */
-        }
-
-        /* ------------------- */
-        /* --- 标题和文本样式 --- */
-        /* ------------------- */
-        h1, h2, h3 {
-            font-weight: 700; /* 粗体 */
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 3rem;
-            line-height: 1.2;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        p {
-            margin-bottom: 20px;
-            max-width: 700px; /* 限制段落宽度以提高可读性 */
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        /* ------------------- */
-        /* --- 导航栏 --- */
-        /* ------------------- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-        }
-
-        .navbar .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            text-decoration: none;
-            color: var(--text-color);
-        }
-
-        .navbar ul {
-            list-style: none;
-            display: flex;
-        }
-
-        .navbar ul li {
-            margin-left: 30px;
-        }
-
-        .navbar ul li a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 400;
-            transition: color 0.3s ease;
-        }
-
-        .navbar ul li a:hover {
-            color: var(--primary-color);
-        }
-
-        /* ------------------- */
-        /* --- 英雄（Hero）区域 --- */
-        /* ------------------- */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            position: relative; /* 添加相对定位，为遮罩层做准备 */
-            color: var(--white); /* 将文字颜色改为白色，以适应深色背景 */
-
-            /* --- ↓↓↓ 这是新添加的背景图片代码 ↓↓↓ --- */
-            /* 你可以替换成自己的图片链接 */
-            background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop');
-            background-size: cover; /* 让图片完全覆盖整个区域 */
-            background-position: center; /* 图片居中显示 */
-            background-attachment: fixed; /* 固定背景，产生视差效果 */
-        }
-
-        /* 添加一个半透明的黑色遮罩层，确保文字清晰可读 */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* 50% 透明度的黑色 */
-            z-index: 1; /* 确保遮罩在背景之上 */
-        }
-
-        /* 确保文字内容在遮罩层之上 */
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin: 20px auto;
-        }
-
-        .hero-button {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--primary-color);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 700;
-            transition: background-color 0.3s ease;
-        }
-
-        .hero-button:hover {
-            background-color: #0056b3;
-        }
-
-        /* ------------------- */
-        /* --- 作品集区域 --- */
-        /* ------------------- */
-        #portfolio {
-            background-color: var(--light-gray);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 默认两列 */
-            gap: 40px;
-        }
-
-        .portfolio-item {
-            background-color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .portfolio-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
-        .portfolio-item img {
-            width: 100%;
-            height: 250px; /* 固定图片高度 */
-            object-fit: cover; /* 保证图片不变形 */
-            display: block;
-        }
-
-        .portfolio-info {
-            padding: 25px;
-        }
-
-        .portfolio-info h3 {
-            margin-bottom: 10px;
-        }
-
-        .portfolio-info p {
-            font-size: 0.9rem;
-            margin-bottom: 0; /* 移除段落底边距 */
-        }
-
-        /* ------------------- */
-        /* --- 关于我区域 --- */
-        /* ------------------- */
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-        }
-
-        .about-text {
-            flex: 2;
-        }
-
-        .about-image {
-            flex: 1;
-            text-align: center;
-        }
-
-        .about-image img {
-            width: 100%;
-            max-width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        /* ------------------- */
-        /* --- 联系方式区域 --- */
-        /* ------------------- */
-        #contact {
-            background-color: var(--text-color);
-            color: var(--white);
-        }
-
-        #contact h2 {
-            color: var(--white);
-        }
-
-        .contact-info a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-        
-        .contact-info a:hover {
-            color: var(--primary-color);
-        }
-
-        /* ------------------- */
-        /* --- 页脚 --- */
-        /* ------------------- */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--light-gray);
-        }
-        
-        /* ------------------- */
-        /* --- 响应式设计 --- */
-        /* ------------------- */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-
-            /* 在移动端隐藏文字导航，未来可改为汉堡菜单 */
-            .navbar ul {
-                display: none;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr; /* 在移动端变为单列 */
-            }
-
-            .about-content {
-                flex-direction: column; /* 关于我区域改为垂直排列 */
-                text-align: center;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <a href="#hero" class="logo">Roland</a>
-        <ul>
-            <li><a href="#portfolio">作品集</a></li>
-            <li><a href="#about">关于我</a></li>
-            <li><a href="#contact">联系我</a></li>
-        </ul>
-    </nav>
-
-    <!-- 英雄（Hero）区域 -->
-    <header id="hero" class="hero">
-        <div class="hero-content">
-            <h1>视觉营销 & 跨境电商</h1>
-            <p>本频道将展示Roland的设计作品集。</p>
-            <!-- 【已修正】这里的链接从 #ortfolio 改为 #portfolio -->
-            <a href="#portfolio" class="hero-button">查看我的作品</a>
-        </div>
-    </header>
-
-    <!-- 主体内容区域 -->
-    <main>
-
-        <!-- 作品集部分 -->
-        <section id="portfolio" class="container">
-            <h2>作品集</h2>
-            <div class="portfolio-grid">
-                <!-- 作品项 1 -->
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=1934&auto=format&fit=crop" alt="护肤品牌视觉设计">
-                    <div class="portfolio-info">
-                        <h3>Luxe Skincare 品牌视觉设计</h3>
-                        <p>为高端护肤品牌 Luxe Skincare 提供全套 VI 设计，包括 Logo、产品包装与线上营销物料，旨在提升品牌形象与市场认知度。</p>
-                    </div>
-                </div>
-                <!-- 作品项 2 -->
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1600132806378-422c548532b6?q=80&w=1974&auto=format&fit=crop" alt="电商App界面优化">
-                    <div class="portfolio-info">
-                        <h3>潮流电商 App 界面优化</h3>
-                        <p>负责潮流电商 App "UrbanThreads" 的核心购物流程 UI/UX 优化，通过改善用户体验，将购买转化率提升了 15%。</p>
-                    </div>
-                </div>
-                <!-- 作品项 3 -->
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1974&auto=format&fit=crop" alt="社交媒体广告策划">
-                    <div class="portfolio-info">
-                        <h3>运动耳机社交媒体广告</h3>
-                        <p>为 "SoundWave" 运动耳机策划并设计了一系列 Instagram 和 Facebook 广告视觉素材，成功吸引了超过50万次互动。</p>
-                    </div>
-                </div>
-                <!-- 作品项 4 -->
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop" alt="精品手表产品摄影">
-                    <div class="portfolio-info">
-                        <h3>精品手表产品摄影与精修</h3>
-                        <p>为 "Timeless Watches" 品牌提供产品摄影与后期精修服务，通过高质量的视觉呈现，突显产品细节与匠心工艺。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 关于我部分 -->
-        <section id="about" class="container">
-            <h2>关于我</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>你好！我是Roland，一名充满热情的视觉营销专家。我对设计有着浓厚的兴趣，并坚信好的设计能够解决问题、传递情感，最终驱动商业增长。</p>
-                    <p>我擅长运用 Adobe Creative Suite（Photoshop, Illustrator）与 Figma，并对跨境电商的用户体验有深入的理解。我乐于接受挑战，并不断学习新的技能来完善我的作品。</p>
-                    <p>在校期间，我参与了多个电商与品牌项目，从品牌识别到数字媒体营销，积累了丰富的实践经验。</p>
-                </div>
-                <div class="about-image">
-                    <!-- 【已替换】这里是你的个人头像 -->
-                    <img src="https://i.ibb.co/zhqsszsN/2025-11-03-2-48-32-compressed.png" alt="Roland的头像">
-                </div>
-            </div>
-        </section>
-
-        <!-- 联系方式部分 -->
-        <section id="contact" class="container">
-            <div class="text-center">
-                <h2>与我联系</h2>
-                <p>期待与您合作。您可以通过以下方式找到我：</p>
-                <div class="contact-info">
-                    <!-- 【已修正】这里的 mailto 链接已改为你的邮箱 -->
                     <p><a href="mailto:Rolandhanrry@gmail.com">Rolandhanrry@gmail.com</a></p>
                 </div>
             </div>
