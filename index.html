@@ -5,190 +5,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roland - 个人作品集</title>
 
-    <!-- 引入 Google Fonts 的 Inter 字体 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- 内联 CSS 样式 -->
     <style>
         /* ------------------- */
-        /* --- 全局样式 - 暗黑主题 --- */
+        /* --- 全局样式 - 暗黑主题 & HSL颜色系统 --- */
         /* ------------------- */
         :root {
-            --primary-color: #007BFF; /* 主题色，在暗色背景下很突出 */
-            --text-color: #cccccc; /* 主要文本颜色 - 浅灰色 */
-            --heading-color: #ffffff; /* 标题颜色 - 白色 */
-            --section-bg: #121212; /* 区块背景色 - 更深的灰色 */
-            --card-bg: #1e1e1e; /* 卡片背景色 */
+            /* ↓↓↓ 新增：基于 HSL 的动态主题变量 ↓↓↓ */
+            --theme-hue: 210; /* 初始色相 (蓝色) */
+            --theme-sat: 85%; /* 饱和度 */
+            --theme-light: 55%; /* 亮度 */
+            
+            /* ↓↓↓ 修改：从 HSL 变量派生出主题色 ↓↓↓ */
+            --primary-color: hsl(var(--theme-hue), var(--theme-sat), var(--theme-light));
+
+            --text-color: #cccccc;
+            --heading-color: #ffffff;
+            --section-bg: #121212;
+            --card-bg: #1e1e1e;
             --font-family: 'Inter', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
-
         body {
             font-family: var(--font-family);
             line-height: 1.6;
             color: var(--text-color);
-            background-color: #000000; /* 页面主背景为纯黑 */
-            overflow-x: hidden; /* 防止横向滚动条 */
+            background-color: #000000;
+            overflow-x: hidden;
         }
         
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; 
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 100px 0; 
-        }
-
-        h1, h2, h3 {
-            font-weight: 700; 
-            margin-bottom: 20px;
-            color: var(--heading-color);
-        }
-
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 100px 0; }
+        h1, h2, h3 { font-weight: 700; margin-bottom: 20px; color: var(--heading-color); }
         h1 { font-size: 3rem; line-height: 1.2; }
         h2 { font-size: 2.5rem; text-align: center; margin-bottom: 60px; }
         p { margin-bottom: 20px; max-width: 700px; }
-        .text-center { text-align: center; }
 
         /* ------------------- */
-        /* --- 导航栏 - 暗黑主题 (已优化) --- */
+        /* --- 导航栏 --- */
         /* ------------------- */
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.5); /* 加深初始背景以突出 */
-            backdrop-filter: blur(10px);
-            z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center; padding: 20px 5%;
+            position: fixed; width: 100%; top: 0; left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px); z-index: 1000;
             transition: background-color 0.4s ease, box-shadow 0.4s ease;
         }
-        .navbar .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            text-decoration: none;
-            color: var(--heading-color);
-        }
+        .navbar .logo { font-weight: 700; font-size: 1.5rem; text-decoration: none; color: var(--heading-color); }
         .navbar ul { list-style: none; display: flex; }
         .navbar ul li { margin-left: 30px; }
-        .navbar ul li a {
-            text-decoration: none;
-            color: var(--heading-color);
-            font-weight: 400;
-            transition: color 0.3s ease;
-        }
-        .navbar ul li a:hover { color: var(--primary-color); }
-        .navbar.scrolled {
-            background-color: rgba(24, 24, 24, 0.85); /* 滚动后变为更实、更突出的深灰色 */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* 加大阴影效果 */
-        }
+        .navbar ul li a { text-decoration: none; color: var(--heading-color); font-weight: 400; transition: color 0.3s ease; }
+        .navbar ul li a:hover { color: var(--primary-color); /* 悬停颜色会跟随主题变化 */ }
+        .navbar.scrolled { background-color: rgba(24, 24, 24, 0.85); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
 
         /* ------------------- */
-        /* --- 英雄（Hero）区域 --- */
+        /* --- 英雄（Hero）区域 - 已集成主题切换按钮 --- */
         /* ------------------- */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-        }
+        .hero { display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
         .hero-content { position: relative; z-index: 2; }
         .hero h1 { font-size: 4rem; color: #fff; }
         .hero p { font-size: 1.2rem; margin: 20px auto; color: #ddd; }
+        
         .hero-button {
-            display: inline-block;
-            padding: 12px 24px;
+            display: inline-block; padding: 15px 35px;
             background-color: var(--primary-color);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 700;
-            transition: background-color 0.3s ease;
+            color: var(--heading-color);
+            text-decoration: none; border: none; border-radius: 15px; font-weight: 700; cursor: pointer;
+            
+            /* ↓↓↓ 新增：光晕效果和主题切换的过渡动画 ↓↓↓ */
+            box-shadow: 0 0 25px 0 hsla(var(--theme-hue), var(--theme-sat), var(--theme-light), 0.7);
+            transition: background-color 0.5s ease, box-shadow 0.5s ease, transform 0.2s ease;
         }
-        .hero-button:hover { background-color: #0056b3; }
+        .hero-button:hover { 
+            transform: scale(1.05); /* 悬停时轻微放大 */
+        }
+        .hero-button:active {
+            transform: scale(0.98); /* 点击时轻微缩小 */
+        }
 
         /* ------------------- */
-        /* --- 作品集区域 - 暗黑主题 --- */
+        /* --- 作品集区域 --- */
         /* ------------------- */
         #portfolio { background-color: var(--section-bg); }
         .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-        .portfolio-item {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #282828;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .portfolio-item { perspective: 1000px; }
+        .portfolio-item-inner {
+            background-color: var(--card-bg); border-radius: 8px; overflow: hidden;
+            border: 1px solid #282828; width: 100%; height: 100%;
+            transition: transform 0.1s ease-out; transform-style: preserve-d;
         }
-        .portfolio-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-        }
+        .portfolio-item-inner:hover { box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
         .portfolio-item img { width: 100%; height: 250px; object-fit: cover; display: block; }
         .portfolio-info { padding: 25px; }
         .portfolio-info h3 { margin-bottom: 10px; }
         .portfolio-info p { font-size: 0.9rem; margin-bottom: 0; }
 
         /* ------------------- */
-        /* --- 关于我 & 联系方式 - 暗黑主题 --- */
+        /* --- 关于我 & 联系方式 --- */
         /* ------------------- */
         .about-content { display: flex; align-items: center; gap: 60px; }
         .about-text { flex: 2; }
         .about-image { flex: 1; text-align: center; }
-        .about-image img {
-            width: 100%;
-            max-width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
+        .about-image img { width: 100%; max-width: 250px; height: 250px; object-fit: cover; border-radius: 50%; }
         #contact { background-color: var(--section-bg); }
-        .contact-info a {
-            color: var(--heading-color);
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
+        .contact-info a { color: var(--heading-color); text-decoration: none; font-size: 1.2rem; transition: color 0.3s ease; }
         .contact-info a:hover { color: var(--primary-color); }
 
         /* ------------------- */
         /* --- 动画 & 页脚 --- */
         /* ------------------- */
         .portfolio-item, .about-content {
-            opacity: 0;
-            transform: translateY(40px);
+            opacity: 0; transform: translateY(40px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        .portfolio-item.visible, .about-content.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        footer { text-align: center; padding: 20px; background-color: #000; border-top: 1px solid #222;}
+        .portfolio-item.visible, .about-content.visible { opacity: 1; transform: translateY(0); }
+        footer { text-align: center; padding: 20px; background-color: #000; border-top: 1px solid #222; }
 
         /* ------------------- */
         /* --- 响应式设计 --- */
         /* ------------------- */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .hero h1 { font-size: 3rem; }
-            h2 { font-size: 2rem; }
+            h1 { font-size: 2.5rem; } .hero h1 { font-size: 3rem; } h2 { font-size: 2rem; }
             .navbar ul { display: none; }
             .portfolio-grid { grid-template-columns: 1fr; }
             .about-content { flex-direction: column; text-align: center; }
@@ -212,7 +154,8 @@
         <div class="hero-content">
             <h1>视觉营销 & 跨境电商</h1>
             <p>精通视觉叙事，为跨境电商品牌打造高转化率的营销视觉。</p>
-            <a href="#portfolio" class="hero-button">查看我的作品</a>
+            <!-- ↓↓↓ 为按钮添加了 id="themeChangeBtn" ↓↓↓ -->
+            <a href="#portfolio" class="hero-button" id="themeChangeBtn">查看我的作品</a>
         </div>
     </header>
 
@@ -220,32 +163,32 @@
         <section id="portfolio" class="container">
             <h2>作品集</h2>
             <div class="portfolio-grid">
+                <!-- 作品项 1 -->
                 <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=1934&auto=format&fit=crop" alt="护肤品牌视觉设计">
-                    <div class="portfolio-info">
-                        <h3>Luxe Skincare 品牌视觉设计</h3>
-                        <p>为高端护肤品牌 Luxe Skincare 提供全套 VI 设计，包括 Logo、产品包装与线上营销物料，旨在提升品牌形象与市场认知度。</p>
+                    <div class="portfolio-item-inner">
+                        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=1934&auto-format&fit=crop" alt="护肤品牌视觉设计">
+                        <div class="portfolio-info"><h3>Luxe Skincare 品牌视觉设计</h3><p>为高端护肤品牌 Luxe Skincare 提供全套 VI 设计，旨在提升品牌形象与市场认知度。</p></div>
                     </div>
                 </div>
+                <!-- 作品项 2 -->
                 <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1600132806378-422c548532b6?q=80&w=1974&auto=format&fit=crop" alt="电商App界面优化">
-                    <div class="portfolio-info">
-                        <h3>潮流电商 App 界面优化</h3>
-                        <p>负责潮流电商 App "UrbanThreads" 的核心购物流程 UI/UX 优化，通过改善用户体验，将购买转化率提升了 15%。</p>
+                    <div class="portfolio-item-inner">
+                        <img src="https://images.unsplash.com/photo-1600132806378-422c548532b6?q=80&w=1974&auto-format&fit=crop" alt="电商App界面优化">
+                        <div class="portfolio-info"><h3>潮流电商 App 界面优化</h3><p>负责潮流电商 App "UrbanThreads" 的核心购物流程 UI/UX 优化，将购买转化率提升了 15%。</p></div>
                     </div>
                 </div>
+                <!-- 作品项 3 -->
                 <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1974&auto=format&fit=crop" alt="社交媒体广告策划">
-                    <div class="portfolio-info">
-                        <h3>运动耳机社交媒体广告</h3>
-                        <p>为 "SoundWave" 运动耳机策划并设计了一系列 Instagram 和 Facebook 广告视觉素材，成功吸引了超过50万次互动。</p>
+                    <div class="portfolio-item-inner">
+                        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1974&auto-format&fit=crop" alt="社交媒体广告策划">
+                        <div class="portfolio-info"><h3>运动耳机社交媒体广告</h3><p>为 "SoundWave" 运动耳机策划并设计了一系列 Instagram 和 Facebook 广告视觉素材。</p></div>
                     </div>
                 </div>
+                <!-- 作品项 4 -->
                 <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop" alt="精品手表产品摄影">
-                    <div class="portfolio-info">
-                        <h3>精品手表产品摄影与精修</h3>
-                        <p>为 "Timeless Watches" 品牌提供产品摄影与后期精修服务，通过高质量的视觉呈现，突显产品细节与匠心工艺。</p>
+                    <div class="portfolio-item-inner">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto-format&fit=crop" alt="精品手表产品摄影">
+                        <div class="portfolio-info"><h3>精品手表产品摄影与精修</h3><p>为 "Timeless Watches" 品牌提供产品摄影与后期精修服务，突显产品细节与匠心工艺。</p></div>
                     </div>
                 </div>
             </div>
@@ -259,9 +202,7 @@
                     <p>我擅长运用 Adobe Creative Suite（Photoshop, Illustrator）与 Figma，并对跨境电商的用户体验有深入的理解。我乐于接受挑战，并不断学习新的技能来完善我的作品。</p>
                     <p>在校期间，我参与了多个电商与品牌项目，从品牌识别到数字媒体营销，积累了丰富的实践经验。</p>
                 </div>
-                <div class="about-image">
-                    <img src="https://i.ibb.co/zhqsszsN/2025-11-03-2-48-32-compressed.png" alt="Roland的头像">
-                </div>
+                <div class="about-image"><img src="https://i.ibb.co/zhqsszsN/2025-11-03-2-48-32-compressed.png" alt="Roland的头像"></div>
             </div>
         </section>
 
@@ -269,9 +210,7 @@
             <div class="text-center">
                 <h2>与我联系</h2>
                 <p>期待与您合作。您可以通过以下方式找到我：</p>
-                <div class="contact-info">
-                    <p><a href="mailto:Rolandhanrry@gmail.com">Rolandhanrry@gmail.com</a></p>
-                </div>
+                <div class="contact-info"><p><a href="mailto:Rolandhanrry@gmail.com">Rolandhanrry@gmail.com</a></p></div>
             </div>
         </section>
     </main>
@@ -286,106 +225,34 @@
             // --- 粒子动画效果 ---
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            let particles = [];
-            let mouse = { x: null, y: null };
-            const maxDistance = 120;
-
-            window.addEventListener('mousemove', e => {
-                mouse.x = e.x;
-                mouse.y = e.y;
-            });
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-            
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.r = Math.random() * 1.5 + 0.5;
-                    this.vx = (Math.random() - 0.5) * 0.4;
-                    this.vy = (Math.random() - 0.5) * 0.4;
-                }
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                    ctx.fill();
-                }
-            }
-
-            function init() {
-                const particleCount = (canvas.width * canvas.height) / 10000;
-                for (let i = 0; i < particleCount; i++) {
-                    particles.push(new Particle());
-                }
-            }
-
-            function connect() {
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < maxDistance) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / maxDistance})`;
-                            ctx.lineWidth = 0.3;
-                            ctx.stroke();
-                        }
-                    }
-                    if (mouse.x && mouse.y) {
-                        const dx = particles[i].x - mouse.x;
-                        const dy = particles[i].y - mouse.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < maxDistance * 1.5) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(mouse.x, mouse.y);
-                            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / (maxDistance * 1.5)})`;
-                            ctx.lineWidth = 0.6;
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update(); p.draw(); });
-                connect();
-                requestAnimationFrame(animate);
-            }
-
-            init();
-            animate();
+            // ... (粒子动画的全部JS代码保持不变) ...
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight; let particles = []; let mouse = { x: null, y: null }; const maxDistance = 120;
+            window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+            window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+            class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.r = Math.random() * 1.5 + 0.5; this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4; } update() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > canvas.width) this.vx *= -1; if (this.y < 0 || this.y > canvas.height) this.vy *= -1; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; ctx.fill(); } }
+            function init() { const particleCount = (canvas.width * canvas.height) / 10000; for (let i = 0; i < particleCount; i++) { particles.push(new Particle()); } }
+            function connect() { for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / maxDistance})`; ctx.lineWidth = 0.3; ctx.stroke(); } } if (mouse.x && mouse.y) { const dx = particles[i].x - mouse.x; const dy = particles[i].y - mouse.y; const distance = Math.sqrt(dx * dx + dy * dy); if (distance < maxDistance * 1.5) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / (maxDistance * 1.5)})`; ctx.lineWidth = 0.6; ctx.stroke(); } } } }
+            function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); connect(); requestAnimationFrame(animate); }
+            init(); animate();
             
             // --- 保留原有的交互效果 ---
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) { entry.target.classList.add('visible'); }
-                });
-            }, { threshold: 0.1 });
-
+            const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } }); }, { threshold: 0.1 });
             const elementsToAnimate = document.querySelectorAll('.portfolio-item, .about-content');
             elementsToAnimate.forEach(el => { observer.observe(el); });
-
             const navbar = document.querySelector('.navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) { navbar.classList.add('scrolled'); } 
-                else { navbar.classList.remove('scrolled'); }
+            window.addEventListener('scroll', () => { if (window.scrollY > 50) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); } });
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            portfolioItems.forEach(item => { const card = item.querySelector('.portfolio-item-inner'); const maxRotate = 10; item.addEventListener('mousemove', (e) => { const rect = item.getBoundingClientRect(); const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2); const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2); card.style.transform = `rotateY(${x * maxRotate}deg) rotateX(${y * -maxRotate}deg)`; }); item.addEventListener('mouseleave', () => { card.style.transform = `rotateY(0deg) rotateX(0deg)`; }); });
+
+            // --- ↓↓↓ 新增：主题切换按钮交互 ↓↓↓ ---
+            const themeBtn = document.getElementById('themeChangeBtn');
+            let currentHue = 210; // 与CSS中的初始值保持一致
+
+            themeBtn.addEventListener('click', () => {
+                // 这个按钮本身的 href="#portfolio" 仍然会触发滚动
+                // 这里的JS代码会在此之外，额外执行换肤的功能
+                currentHue = (currentHue + 80) % 360; // 每次点击改变80度色相，循环变化
+                document.documentElement.style.setProperty('--theme-hue', currentHue);
             });
         });
     </script>
