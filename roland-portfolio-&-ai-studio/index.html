@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roland Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#2a2d38', // Dark Gunmetal
+              background: '#d9d5cd', // Warm Grey/Beige
+              accent: '#5c9453', // Muted Green
+            },
+            fontFamily: {
+              sans: ['"Smiley Sans"', '"Inter"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'fade-in': 'fadeIn 0.8s ease-out forwards',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
+          },
+        },
+      };
+    </script>
+    <style>
+      @font-face {
+        font-family: 'Smiley Sans';
+        src: url('https://cdn.jsdelivr.net/gh/atelier-anchor/smiley-sans@v1.1.1/fonts/smiley-sans-oblique.woff2') format('woff2');
+        font-display: swap;
+      }
+      
+      body {
+        background-color: #d9d5cd;
+        color: #2a2d38;
+        font-family: 'Smiley Sans', sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #d9d5cd;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2a2d38;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #5c9453;
+      }
+
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+      }
+      
+      .glass-button {
+        background: rgba(92, 148, 83, 0.85);
+        backdrop-filter: blur(4px);
+        color: #d9d5cd;
+        border: 1px solid rgba(255,255,255,0.2);
+        transition: all 0.3s ease;
+      }
+      
+      .glass-button:hover {
+        background: rgba(42, 45, 56, 1);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+
+      .glass-input {
+        background: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #2a2d38;
+      }
+      .glass-input:focus {
+        background: rgba(255, 255, 255, 0.6);
+        outline: 2px solid #5c9453;
+        outline-offset: 2px;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
